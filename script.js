@@ -64,3 +64,9 @@ function displayTable() {
 displayTable();
 
 
+const showButton= document.querySelector('.showDialog');
+const newBook = document.querySelector('#new-book')
+
+showButton.addEventListener("click", () => {
+    newBook.showModal();
+});
