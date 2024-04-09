@@ -19,22 +19,30 @@
                 <form class="book-form">
                     <div class="book-title">
                         <label for="booktitle"></label>
-                        <input type="text" id="booktitle" placeholder="Name of the book" required>
+                        <input type="text" id="booktitle" placeholder="Name of the book">
                     </div>
 
                     <div class="book-author">
                         <label for="bookauthor"></label>
-                        <input type="text" id="bookauthor" placeholder="Author of the book" required>
+                        <input type="text" id="bookauthor" placeholder="Author of the book">
                     </div>
 
                     <div class="book-pages">
                         <label for="bookpage"></label>
-                        <input type="number" id="bookpage" placeholder="Number of book pages" required>
+                        <input type="number" id="bookpage" placeholder="No. of book pages">
                     </div>
 
                     <div class="book-status">
-                        <label for="bookstatus"></label>
-                        <input type="text" id="bookstatus" placeholder="Have you read the book" required>
+                        <label for="bookstatus">Have read?: </label>
+                        <select name="haveread" id="bookstatus">
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+
+                    <div class="form-button">
+                        <button value="cancel" formmethod="dialog">Cancel</button>
+                        <button id="confirmBtn" value="default">Confirm</button>
                     </div>
     
                 </form>

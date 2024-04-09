@@ -65,8 +65,16 @@ displayTable();
 
 
 const showButton= document.querySelector('.showDialog');
-const newBook = document.querySelector('#new-book')
+const newBook = document.querySelector('#new-book') // dialog element
+const confirmBtn = document.querySelector('#confirmBtn')
+const outputBox = document.querySelector('output')
 
 showButton.addEventListener("click", () => {
     newBook.showModal();
 });
+
+newBook.addEventListener("close", (e) => {
+    outputBox.value =  newBook.returnValue === "default" 
+        ? "No return Value. " 
+        : `ReturnValue: ${favDialog.returnValue}.`;
+})
