@@ -14,22 +14,19 @@ const myLibrary = [
     }
   ];
 
-function Book() {
-  // the constructor...
+function Book(name, author, Pages, HaveRead) {
+  this.name = name;
+  this.author = author;
+  this.Pages = Pages;
+  this.HaveRead = HaveRead;
+//   this.info = function(){
+//     let about = `The ${this.name} written by ${this.author} has ${this.Pages} pages`;
+//     return about;
+//   }
 }
 
-function addBookToLibrary() {
-  // do stuff here
-  let name = prompt("Please enter Name of the new book?");
-  let author = prompt("Who is the author of the book?");
-  let bookPages = parseInt(prompt("How many pages does the book have?"));
-  let status = prompt("Has the book been read?");
-  let newBook = {
-    "name" : name,
-    "author": author,
-    "Pages": bookPages,
-    "HaveRead": status
-  }
+function addBookToLibrary(name, author, Pages, HaveRead) {
+  let newBook = new Book(name, author, Pages, HaveRead);
   myLibrary.push(newBook);
 }
 
@@ -61,20 +58,41 @@ function displayTable() {
     mainContainer.appendChild(table);
 }
 
-displayTable();
+
 
 
 const showButton= document.querySelector('.showDialog');
-const newBook = document.querySelector('#new-book') // dialog element
-const confirmBtn = document.querySelector('#confirmBtn')
-const outputBox = document.querySelector('output')
+const dialog = document.querySelector('#new-book'); // dialog element
+const confirmBtn = document.querySelector('#confirmBtn');
+const outputBox = document.querySelector('output');
+const cancelButton = document.querySelector('#cancel');
 
 showButton.addEventListener("click", () => {
-    newBook.showModal();
+    dialog.showModal();
 });
 
-newBook.addEventListener("close", (e) => {
-    outputBox.value =  newBook.returnValue === "default" 
-        ? "No return Value. " 
-        : `ReturnValue: ${favDialog.returnValue}.`;
+cancelButton.addEventListener("click", () => {
+    dialog.close();
 })
+
+
+confirmBtn.addEventListener("click", (event) =>{
+    
+    let bookName = document.querySelector('#booktitle');
+    let bookAuthor = document.querySelector('#bookauthor');
+    let bookPages = document.querySelector('#bookpage');
+    let bookStatus = document.querySelector('#bookstatus');
+
+    event.preventDefault();
+
+    let name = bookName.value;
+    let author = bookAuthor.value;
+    let Pages = parseInt(bookPages.value);
+    let status = bookStatus.value;
+
+    addBookToLibrary(name, author, Pages, status);
+    document.querySelector("form").reset();
+    dialog.close();
+    displayTable();
+});
+
