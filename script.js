@@ -11,6 +11,10 @@ function Book(name, author, Pages, HaveRead) {
 //   }
 }
 
+Book.prototype.toggleReadStatus = function() {
+    this.HaveRead = this.HaveRead === "Yes" ? "No" : "Yes";
+};
+
 function addBookToLibrary(name, author, Pages, HaveRead) {
   let newBook = new Book(name, author, Pages, HaveRead);
   myLibrary.push(newBook);
@@ -30,13 +34,12 @@ function displayTable() {
         th.textContent = key;
         headerRow.appendChild(th);
     });
-    // Add header for remove button column
-    headerRow.innerHTML += '<th>Remove</th>';
+    // Add headers for remove button and toggle read status button columns
+    headerRow.innerHTML += '<th>Remove</th><th>Toggle Read Status</th>';
     table.appendChild(headerRow);
 
     // Loop through the book contents and add rows to the table
-    for (let i = 0; i < myLibrary.length; i++) {
-        const book = myLibrary[i];
+    myLibrary.forEach((book, index) => {
         const row = document.createElement('tr');
         keys.forEach(key => {
             const td = document.createElement('td');
@@ -47,28 +50,36 @@ function displayTable() {
         // Create remove button for each book
         const removeButton = document.createElement('button');
         removeButton.textContent = 'Remove';
-        
-        // Set custom attribute 'index' to store the book index
-        removeButton.setAttribute('index', i);
-        
-        // Attach event listener to capture the book index
+        removeButton.setAttribute('index', index);
         removeButton.addEventListener('click', (e) => {
             let ind = e.target.getAttribute('index');
             removeBook(ind);
             displayTable(); // Update the table after removing the book
         });
-
-        // Create cell for the remove button
         const removeCell = document.createElement('td');
         removeCell.appendChild(removeButton);
         row.appendChild(removeCell);
 
+        // Create toggle read status button for each book
+        const toggleButton = document.createElement('button');
+        toggleButton.textContent = 'Toggle Read Status';
+        toggleButton.setAttribute('index', index);
+        toggleButton.addEventListener('click', (e) => {
+            let ind = e.target.getAttribute('index');
+            myLibrary[ind].toggleReadStatus();
+            displayTable(); // Update the table after toggling read status
+        });
+        const toggleCell = document.createElement('td');
+        toggleCell.appendChild(toggleButton);
+        row.appendChild(toggleCell);
+
         // Append row to the table
         table.appendChild(row);
-    }
+    });
 
     mainContainer.appendChild(table);
 }
+
 
 
 
@@ -113,3 +124,10 @@ confirmBtn.addEventListener("click", (event) =>{
     displayTable();
 });
 
+document.addEventListener("click", (event) => {
+    if (event.target.classList.contains("toggle-read-status")) {
+        const index = event.target.getAttribute("data-index");
+        myLibrary[index].toggleReadStatus();
+        displayTable(); // Update the table after toggling read status
+    }
+});
