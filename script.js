@@ -1,25 +1,11 @@
-// const myLibrary = [];
-const myLibrary = [
-    {
-      "name": "The Great Gatsby",
-      "author": "F. Scott Fitzgerald",
-      "Pages": 180,
-      "HaveRead": "yes"
-    },
-    {
-      "name": "To Kill a Mockingbird",
-      "author": "Harper Lee",
-      "Pages": 281,
-      "HaveRead": "no"
-    }
-  ];
+const myLibrary = [];
 
 function Book(name, author, Pages, HaveRead) {
   this.name = name;
   this.author = author;
   this.Pages = Pages;
   this.HaveRead = HaveRead;
-//   this.info = function(){
+//   this.info = function () {
 //     let about = `The ${this.name} written by ${this.author} has ${this.Pages} pages`;
 //     return about;
 //   }
@@ -35,9 +21,12 @@ function displayTable() {
     const mainContainer = document.querySelector('.form-container')
     const table = document.createElement('table');
     const headerRow = document.createElement('tr');
-    
+    const keys = Object.keys(new Book());
+
+    mainContainer.innerHTML = '';
+
     // Loop through the keys and add table heads
-    Object.keys(myLibrary[0]).forEach(key => {
+    keys.forEach(key => {
         const th = document.createElement('th');
         th.appendChild(document.createTextNode(key));
         headerRow.appendChild(th);
@@ -45,15 +34,16 @@ function displayTable() {
     table.appendChild(headerRow);
 
     // Loop through the book contents add add to table
+   
     myLibrary.forEach(book => {
         const row = document.createElement('tr');
-        Object.values(book).forEach(value => {
+        keys.forEach(key => {
             const td = document.createElement('td');
-            td.appendChild(document.createTextNode(value));
+            td.appendChild(document.createTextNode(book[key]));
             row.appendChild(td);
-        })
+        });
         table.appendChild(row);
-    })
+    });
 
     mainContainer.appendChild(table);
 }
@@ -91,7 +81,7 @@ confirmBtn.addEventListener("click", (event) =>{
     let status = bookStatus.value;
 
     addBookToLibrary(name, author, Pages, status);
-    document.querySelector("form").reset();
+    document.querySelector(".book-form").reset();
     dialog.close();
     displayTable();
 });
