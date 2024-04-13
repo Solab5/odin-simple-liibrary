@@ -80,9 +80,6 @@ function displayTable() {
     mainContainer.appendChild(table);
 }
 
-
-
-
 // function that removes the book from the array
 function removeBook(index) {
     myLibrary.splice(index, 1);
@@ -124,10 +121,3 @@ confirmBtn.addEventListener("click", (event) =>{
     displayTable();
 });
 
-document.addEventListener("click", (event) => {
-    if (event.target.classList.contains("toggle-read-status")) {
-        const index = event.target.getAttribute("data-index");
-        myLibrary[index].toggleReadStatus();
-        displayTable(); // Update the table after toggling read status
-    }
-});
