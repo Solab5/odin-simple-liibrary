@@ -16,39 +16,66 @@ function addBookToLibrary(name, author, Pages, HaveRead) {
   myLibrary.push(newBook);
 }
 
-
 function displayTable() {
-    const mainContainer = document.querySelector('.form-container')
+    const mainContainer = document.querySelector('.form-container');
     const table = document.createElement('table');
-    const headerRow = document.createElement('tr');
     const keys = Object.keys(new Book());
 
     mainContainer.innerHTML = '';
 
-    // Loop through the keys and add table heads
+    // Create header row
+    const headerRow = document.createElement('tr');
     keys.forEach(key => {
         const th = document.createElement('th');
-        th.appendChild(document.createTextNode(key));
+        th.textContent = key;
         headerRow.appendChild(th);
     });
+    // Add header for remove button column
+    headerRow.innerHTML += '<th>Remove</th>';
     table.appendChild(headerRow);
 
-    // Loop through the book contents add add to table
-   
-    myLibrary.forEach(book => {
+    // Loop through the book contents and add rows to the table
+    for (let i = 0; i < myLibrary.length; i++) {
+        const book = myLibrary[i];
         const row = document.createElement('tr');
         keys.forEach(key => {
             const td = document.createElement('td');
-            td.appendChild(document.createTextNode(book[key]));
+            td.textContent = book[key];
             row.appendChild(td);
         });
+
+        // Create remove button for each book
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Remove';
+        
+        // Set custom attribute 'index' to store the book index
+        removeButton.setAttribute('index', i);
+        
+        // Attach event listener to capture the book index
+        removeButton.addEventListener('click', (e) => {
+            let ind = e.target.getAttribute('index');
+            removeBook(ind);
+            displayTable(); // Update the table after removing the book
+        });
+
+        // Create cell for the remove button
+        const removeCell = document.createElement('td');
+        removeCell.appendChild(removeButton);
+        row.appendChild(removeCell);
+
+        // Append row to the table
         table.appendChild(row);
-    });
+    }
 
     mainContainer.appendChild(table);
 }
 
 
+
+// function that removes the book from the array
+function removeBook(index) {
+    myLibrary.splice(index, 1);
+}
 
 
 const showButton= document.querySelector('.showDialog');
