@@ -7,3 +7,35 @@ td,th {
     border: 1px solid black;
     padding: 8px;
 }
+
+h1 {
+    text-align: center;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+body {
+    background-color: lightcyan;
+    font-family: "Audiowide", sans-serif;
+}
+
+.showDialog {
+    border-radius: 5px;
+    background-color: greenyellow;
+    height: 25px;
+    width: 80px;
+}
+
+.book-form {
+    height: 200px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    align-items: center;
+    background-color: palegreen;
+}
