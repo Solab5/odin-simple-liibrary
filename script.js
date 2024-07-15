@@ -1,15 +1,24 @@
 const myLibrary = [];
 
-function Book(name, author, Pages, HaveRead) {
-  this.name = name;
-  this.author = author;
-  this.Pages = Pages;
-  this.HaveRead = HaveRead;
-//   this.info = function () {
-//     let about = `The ${this.name} written by ${this.author} has ${this.Pages} pages`;
-//     return about;
-//   }
+class Book {
+    constructor(name, author, Pages, HaveRead){
+        this.name = name;
+        this.author = author;
+        this.Pages = Pages;
+        this.HaveRead = HaveRead;
+    }
 }
+
+// function Book(name, author, Pages, HaveRead) {
+//   this.name = name;
+//   this.author = author;
+//   this.Pages = Pages;
+//   this.HaveRead = HaveRead;
+// //   this.info = function () {
+// //     let about = `The ${this.name} written by ${this.author} has ${this.Pages} pages`;
+// //     return about;
+// //   }
+// }
 
 Book.prototype.toggleReadStatus = function() {
     this.HaveRead = this.HaveRead === "Yes" ? "No" : "Yes";
