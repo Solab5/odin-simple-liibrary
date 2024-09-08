@@ -99,14 +99,19 @@ cancelButton.addEventListener("click", () => {
 })
 
 
-confirmBtn.addEventListener("click", (event) =>{
-    
+confirmBtn.addEventListener("click", (event) => {
+    // Check if the form is valid
+    const form = document.querySelector(".book-form");
+    if (!form.checkValidity()) {
+        return; // Stop if the form is not valid
+    }
+
     let bookName = document.querySelector('#booktitle');
     let bookAuthor = document.querySelector('#bookauthor');
     let bookPages = document.querySelector('#bookpage');
     let bookStatus = document.querySelector('#bookstatus');
 
-    event.preventDefault();
+    event.preventDefault(); // Prevent default only if the form is valid
 
     let name = bookName.value;
     let author = bookAuthor.value;
